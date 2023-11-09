@@ -1,11 +1,13 @@
 import { LitElement, html, css } from "lit";
 import "./example-chart2.js";
 import "./example-chart3.js";
+import "./example-chart.js";
 
 export class App extends LitElement {
   render() {
     return html`
       <div class="list">
+        <example-chart></example-chart>
         <example-chart2></example-chart2>
         <example-chart3></example-chart3>
         <!-- Add more components here -->
