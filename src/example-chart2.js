@@ -57,7 +57,7 @@ class ExampleChart2 extends LitElement {
       series: [
         {
           type: "treemap",
-          layoutAlgorithm: "stripes",
+          layoutAlgorithm: "squarified",
           alternateStartingDirection: true,
           borderColor: "#fff",
           borderRadius: 6,
@@ -70,7 +70,7 @@ class ExampleChart2 extends LitElement {
           levels: [
             {
               level: 1,
-              layoutAlgorithm: "sliceAndDice",
+              //layoutAlgorithm: "sliceAndDice",
               dataLabels: {
                 enabled: true,
                 align: "left",
@@ -86,22 +86,22 @@ class ExampleChart2 extends LitElement {
             {
               id: "A",
               name: "Product",
-              color: "#50FFB1",
+              color: "#03224C",
             },
             {
               id: "B",
               name: "Engineering",
-              color: "#F5FBEF",
+              color: "#826C7F",
             },
             {
               id: "C",
               name: "Data",
-              color: "#A09FA8",
+              color: "#9DD9D2",
             },
             {
               id: "D",
               name: "Others",
-              color: "#E7ECEF",
+              color: "#F4D06F",
             },
             {
               name: "Rasmus",
