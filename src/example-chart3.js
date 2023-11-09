@@ -1,7 +1,6 @@
 import { LitElement, html, css } from "lit";
 import Highcharts from "highcharts";
 import networkgraph from "highcharts/modules/networkgraph";
-import "./label";
 import { dataset } from "./dataset.js";
 
 networkgraph(Highcharts);
