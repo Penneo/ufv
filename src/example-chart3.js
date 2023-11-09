@@ -6,20 +6,26 @@ import { dataset } from "./dataset.js";
 networkgraph(Highcharts);
 
 const data = dataset
-  .map((item) => {
-    return item.relationshipDetails.map((r) => {
+  .map(({ relationshipDetails }) => {
+    return relationshipDetails.map((r) => {
       return {
+        id: `${r.startNodeID}-${r.endNodeID}`,
         from: String(r.startNodeID),
         to: String(r.endNodeID),
-        weight: Number(r.OwnedStake),
+        weight: (Number(r.OwnedStake) * 100).toFixed(3),
         color: "gray",
-        name: "hello",
       };
     });
   })
   .flat();
 
-console.log(data);
+const nodesData = dataset
+  .map(({ nodes }) => {
+    return nodes.flat().map((n) => {
+      return { value8Id: n.Valu8Id, name: n.Name, label: n.label };
+    });
+  })
+  .flat();
 
 class ExampleChart3 extends LitElement {
   static styles = css`
@@ -34,35 +40,22 @@ class ExampleChart3 extends LitElement {
   renderChart() {
     const container = this.shadowRoot.querySelector("#container");
     Highcharts.addEvent(Highcharts.Series, "afterSetOptions", function (e) {
-      const colors = Highcharts.getOptions().colors;
       const nodes = {};
-      let i = 0;
 
       if (
         this instanceof Highcharts.Series.types.networkgraph &&
-        e.options.id === "language-tree"
+        e.options.id === "ownership-tree"
       ) {
-        e.options.data.forEach(function (link) {
-          if (link[0] === "Proto Indo-European") {
-            nodes["Proto Indo-European"] = {
-              id: "Proto Indo-European",
-              marker: {
-                radius: 28,
-              },
-            };
-            nodes[link[1]] = {
-              id: link[1],
-              marker: {
-                radius: 18,
-              },
-              color: colors[i++],
-            };
-          } else if (nodes[link[0]] && nodes[link[0]].color) {
-            nodes[link[1]] = {
-              id: link[1],
-              color: nodes[link[0]].color,
-            };
-          }
+        e.options.data.forEach((link) => {
+          const node = nodesData.find(
+            ({ value8Id }) => Number(link.from) === value8Id
+          );
+
+          nodes[link.from] = {
+            id: link.from,
+            name: node.name,
+            color: node.label === "Person" ? "#c3e2ff" : "#03224c",
+          };
         });
 
         e.options.nodes = Object.keys(nodes).map(function (id) {
@@ -95,18 +88,17 @@ class ExampleChart3 extends LitElement {
       },
       series: [
         {
+          id: "ownership-tree",
           animation: false,
-          id: "language-tree",
           marker: {
-            radius: 13,
+            radius: 15,
             symbol: "square",
           },
           dataLabels: {
             enabled: true,
-            align: "center",
-            allowOverlap: false,
+            allowOverlap: true,
+            linkFormat: `{point.weight}% \u2192`,
           },
-
           data: data,
         },
       ],
