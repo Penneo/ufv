@@ -6,7 +6,6 @@ export class App extends LitElement {
   render() {
     return html`
       <div class="list">
-        <example-chart></example-chart>
         <example-chart2></example-chart2>
         <!-- Add more components here -->
       </div>
