@@ -59,9 +59,11 @@ class ExampleChart extends LitElement {
     Highcharts.chart(container, {
       series: [
         {
+          name: "Legal owners",
           type: "treemap",
           layoutAlgorithm: "squarified",
           alternateStartingDirection: true,
+          allowDrillToNode: true,
           borderColor: "#fff",
           borderRadius: 6,
           borderWidth: 2,
