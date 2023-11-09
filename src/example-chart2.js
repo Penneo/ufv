@@ -85,99 +85,74 @@ class ExampleChart2 extends LitElement {
           data: [
             {
               id: "A",
-              name: "Nord-Norge",
+              name: "Product",
               color: "#50FFB1",
             },
             {
               id: "B",
-              name: "Trøndelag",
+              name: "Engineering",
               color: "#F5FBEF",
             },
             {
               id: "C",
-              name: "Vestlandet",
+              name: "Data",
               color: "#A09FA8",
             },
             {
               id: "D",
-              name: "Østlandet",
+              name: "Others",
               color: "#E7ECEF",
             },
             {
-              id: "E",
-              name: "Sørlandet",
-              color: "#A9B4C2",
-            },
-            {
-              name: "Troms og Finnmark",
+              name: "Rasmus",
               parent: "A",
-              value: 70923,
+              value: 15,
             },
             {
-              name: "Nordland",
+              name: "Julieta",
               parent: "A",
-              value: 35759,
+              value: 15,
             },
             {
-              name: "Trøndelag",
+              name: "Nikita",
               parent: "B",
-              value: 39494,
+              value: 15,
             },
             {
-              name: "Møre og Romsdal",
+              name: "Sune",
+              parent: "B",
+              value: 15,
+            },
+            {
+              name: "Marian",
               parent: "C",
-              value: 13840,
+              value: 15,
             },
             {
-              name: "Vestland",
+              name: "Thomas",
               parent: "C",
-              value: 31969,
+              value: 15,
             },
             {
-              name: "Rogaland",
-              parent: "C",
-              value: 8576,
-            },
-            {
-              name: "Viken",
+              name: "Carmen",
               parent: "D",
-              value: 22768,
-            },
-            {
-              name: "Innlandet",
-              parent: "D",
-              value: 49391,
-            },
-            {
-              name: "Oslo",
-              parent: "D",
-              value: 454,
-            },
-            {
-              name: "Vestfold og Telemark",
-              parent: "D",
-              value: 15925,
-            },
-            {
-              name: "Agder",
-              parent: "E",
-              value: 14981,
+              value: 10,
             },
           ],
         },
       ],
       title: {
-        text: "Norwegian regions and counties by area",
+        text: "Ownership by individual",
         align: "left",
       },
       subtitle: {
-        text: 'Source: <a href="https://snl.no/Norge" target="_blank">SNL</a>',
+        text: 'Source: <a href="https://snl.no/Norge" target="_blank">Penneo</a>',
         align: "left",
       },
       tooltip: {
         useHTML: true,
         pointFormat:
-          "The area of <b>{point.name}</b> is <b>{point.value} km<sup>2</sup></b>",
+          "The ownership of <b>{point.name}</b> is <b>{point.value} %</b>",
       },
     });
   }
