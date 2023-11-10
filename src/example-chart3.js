@@ -12,20 +12,40 @@ const data = dataset
         id: `${r.startNodeID}-${r.endNodeID}`,
         from: String(r.startNodeID),
         to: String(r.endNodeID),
-        weight: (Number(r.OwnedStake) * 100).toFixed(3),
+        weight: (Number(r.OwnedStake) * 100).toFixed(2),
         color: "gray",
       };
     });
   })
   .flat();
 
+const targetCompanyValu8Id = 3633496;
+const UBO_MIN_PERCENTAGE = 0.2;
+
+const isUBO = (value8Id) => {
+  return dataset.map(({ uboDetails }) => {
+    return uboDetails.find((item) => item.Valu8Id === value8Id).ownedStake > UBO_MIN_PERCENTAGE;
+  })[0];
+};
+
 const nodesData = dataset
   .map(({ nodes }) => {
     return nodes.flat().map((n) => {
-      return { value8Id: n.Valu8Id, name: n.Name, label: n.label };
+      return {
+        value8Id: n.Valu8Id,
+        name: n.Name,
+        label: n.label,
+        isUbo: n.label === "Person" ? isUBO(n.Valu8Id) : false,
+      };
     });
   })
   .flat();
+
+const ColorScheme = {
+  company: "#03224c",
+  person: "#826c7f",
+  ubo: "#9dd9d2"
+};
 
 class ExampleChart3 extends LitElement {
   static styles = css`
@@ -54,7 +74,15 @@ class ExampleChart3 extends LitElement {
           nodes[link.from] = {
             id: link.from,
             name: node.name,
-            color: node.label === "Person" ? "#c3e2ff" : "#03224c",
+            marker: {
+              radius: Number(link.from) === targetCompanyValu8Id ? 32 : 16,
+            },
+            color:
+              node.label === "Person"
+                ? node.isUbo
+                  ? ColorScheme.ubo
+                  : ColorScheme.person
+                : ColorScheme.company,
           };
         });
 
@@ -97,7 +125,7 @@ class ExampleChart3 extends LitElement {
           dataLabels: {
             enabled: true,
             allowOverlap: true,
-            linkFormat: `{point.weight}% \u2192`,
+            linkFormat: `{point.weight}%`,
           },
           data: data,
         },
