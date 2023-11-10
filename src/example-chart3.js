@@ -2,7 +2,6 @@ import { LitElement, html, css } from "lit";
 import Highcharts from "highcharts";
 import networkgraph from "highcharts/modules/networkgraph";
 import { dataset } from "./dataset.js";
-import { run } from "./neo4j.js";
 
 networkgraph(Highcharts);
 
